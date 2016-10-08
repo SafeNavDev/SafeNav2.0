@@ -50,11 +50,16 @@ class FetchCrimeData:
     # Allows a more efficient query by not initializing local variables every time
     def static_query(self, location, radius):
         incidents = []
-        location_param = 'and within_circle(location, ' + location[0] + ', ' + location[1] + ', ' + str(radius) + ')'
+        location_param = 'and within_circle(location, ' + str(location[0]) + ', ' + str(location[1]) + ', ' + str(radius) + ')'
         url = self.static_base_url + self.static_category_param + self.static_date_param + location_param
         local_data = requests.get(url).json()
         for x in local_data:
+            print(x)
             incidents.append(x['location']['coordinates'])
+        if not incidents:
+            print("EMPTY")
+        else:
+            print(incidents)
         return incidents
 
 DataObject = FetchCrimeData('2016', '10', '08', 'ARSON')
