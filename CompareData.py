@@ -17,5 +17,5 @@ class CompareData:
         print(incidents_on_route)
         return incidents_on_route
 
-all_incidents = CompareData.return_conflicts('42.3417707', '-83.0601714', '42.3801', '-83.0463', '2016', '10', '8', 'ARSON')
+all_incidents = CompareData.return_conflicts('42.3417707', '-83.0601714', '42.3801', '-83.0463', '2016', '10', '8', 'ASSAULT')
 print(all_incidents)

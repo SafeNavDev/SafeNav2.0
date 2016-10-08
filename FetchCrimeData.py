@@ -54,7 +54,6 @@ class FetchCrimeData:
         url = self.static_base_url + self.static_category_param + self.static_date_param + location_param
         local_data = requests.get(url).json()
         for x in local_data:
-            print(x)
             incidents.append(x['location']['coordinates'])
         if not incidents:
             print("EMPTY")
@@ -63,5 +62,5 @@ class FetchCrimeData:
         return incidents
 
 DataObject = FetchCrimeData('2016', '10', '08', 'ARSON')
-data = DataObject.static_query(['42.3417707', '-83.0601714'], 3000)
+data = DataObject.static_query(['42.375470000000064', '-83.04488999999995'], 3000)
 print(data)
