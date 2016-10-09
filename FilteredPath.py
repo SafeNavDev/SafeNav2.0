@@ -65,11 +65,11 @@ class FilteredPath:
         for x in range(1, len(path)):
             if long_diffs[x - 1] < avg_delta_long and lat_diffs[x - 1] < avg_delta_lat:
                 filtered_path.append(path[x])
-        print(len(filtered_path))
+        return filtered_path
 
-    def filter_path_theory(path):
-        delta_lat = FilteredPath.change_in_latitude(.025)
-        delta_long = FilteredPath.change_in_longitude(42.3314, .025)
+    def filter_path_theory(path, segment):
+        delta_lat = FilteredPath.change_in_latitude(segment)
+        delta_long = FilteredPath.change_in_longitude(42.3314, segment)
         filtered_path = []
         long_diffs = []
         lat_diffs = []
@@ -81,16 +81,4 @@ class FilteredPath:
         for x in range(1, len(path)):
             if long_diffs[x - 1] < delta_long and lat_diffs[x - 1] < delta_lat:
                 filtered_path.append(path[x])
-        print(len(filtered_path))
-
-# First test on small Detroit route dataset
-data1 = FilteredPath.get_data('42.3417707', '-83.0601714', '42.3387803', '-83.0572124')
-print(len(data1))
-data2 = FilteredPath.filter_path_average(data1)
-data3 = FilteredPath.filter_path_theory(data1)
-
-# Second test on large Detroit-Washington DC route dataset
-data4 = FilteredPath.get_data('42.3417707', '-83.0601714', '9.9280694', '-84.0907246')
-print(len(data4))
-data5 = FilteredPath.filter_path_average(data4)
-data6 = FilteredPath.filter_path_theory(data4)
+        return filtered_path
