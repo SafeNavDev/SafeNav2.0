@@ -52,6 +52,7 @@ class FetchCrimeData:
         incidents = []
         location_param = 'and within_circle(location, ' + str(location[0]) + ', ' + str(location[1]) + ', ' + str(radius) + ')'
         url = self.static_base_url + self.static_category_param + self.static_date_param + location_param
+        print(url)
         local_data = requests.get(url).json()
         for x in local_data:
             incidents.append(x['location']['coordinates'])
@@ -61,6 +62,6 @@ class FetchCrimeData:
             print(incidents)
         return incidents
 
-DataObject = FetchCrimeData('2016', '10', '08', 'ARSON')
-data = DataObject.static_query(['42.375470000000064', '-83.04488999999995'], 3000)
+DataObject = FetchCrimeData('2015', '10', '08', 'BURGLARY')
+data = DataObject.static_query(['42.37742', '-83.20891'], 200)
 print(data)
