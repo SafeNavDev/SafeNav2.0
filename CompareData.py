@@ -2,7 +2,7 @@ import requests
 from FetchCrimeData import FetchCrimeData
 from FilteredPath import FilteredPath
 
-segment_length_miles = .1
+segment_length_miles = .025
 segment_length_meters = 500
 
 class CompareData:
