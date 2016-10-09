@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, datetime
+
 
 app = Flask(__name__)
 
 
-@app.route('/coordinate/<lat1>,<long1>;<lat2>,<long2>')
+@app.route('/coordinate/<lat1>,<long1>;<lat2>,<long2>;<time>')
 def get_route(lat1, long1, lat2, long2, time):
     # Validate all parameters are valid latitudes and longitudes
     if not is_latitude(lat1):
@@ -18,9 +19,20 @@ def get_route(lat1, long1, lat2, long2, time):
         return invalid('Time is not valid')
 
     # add all params to a dict to be converted to a json array
-    newDict = {'lat1': lat1, 'long1': long1, 'lat2': lat2, 'long2': long2, 'time': time}
-
     #wants, year, month, day, time
+
+    #time will be local on android device so it will be sent by the android
+    year = datetime.datetime.today().year
+    month = datetime.datetime.today().month
+    day = datetime.datetime.today().day
+
+
+
+    newDict = {'lat1': lat1, 'long1': long1, 'lat2': lat2, 
+                'long2': long2, 'year': year, 'month': month, 
+                'day': day, 'time': time}
+
+   
     return jsonify(**newDict)
 
 
