@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 
 @app.route('/coordinate/<lat1>,<long1>;<lat2>,<long2>')
-def get_route(lat1, long1, lat2, long2):
+def get_route(lat1, long1, lat2, long2, time):
     # Validate all parameters are valid latitudes and longitudes
     if not is_latitude(lat1):
         return invalid('Latitude 1 not valid')
@@ -14,10 +14,13 @@ def get_route(lat1, long1, lat2, long2):
         return invalid('Longitude 1 not valid')
     elif not is_longitude(long2):
         return invalid('Longitude 2 not valid')
+    elif not is_time(time):
+        return invalid('Time is not valid')
 
     # add all params to a dict to be converted to a json array
-    newDict = {'lat1': lat1, 'long1': long1, 'lat2': lat2, 'long2': long2}
+    newDict = {'lat1': lat1, 'long1': long1, 'lat2': lat2, 'long2': long2, 'time': time}
 
+    #wants, year, month, day, time
     return jsonify(**newDict)
 
 
@@ -40,6 +43,10 @@ def is_longitude(s):
             return False
         return True
     except ValueError:
+        return False
+
+def is_time(time):
+    if time < 0 || time > 24:
         return False
 
 

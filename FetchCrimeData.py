@@ -8,12 +8,12 @@ class FetchCrimeData:
 
     # A custom initializer for efficiency when computing multiple lines along a path
     # Having certain data members stored is more efficient
-    def __init__(self, year_in, month_in, day_in, category_in):
+    def __init__(self, year_in, month_in, day_in):
         month_in = FetchCrimeData.format_month(int(month_in))
         date = year_in + '-' + month_in + '-' + day_in + 'T12:00:00'
         prev_month = FetchCrimeData.format_month(int(month_in) - 2)
         prev_date = year_in + '-' + prev_month + '-' + day_in + 'T12:00:00'
-        self.static_category_param = 'category=' + category_in
+        self.static_category_param = 'category=' + 'ASSAULT' + 
         self.static_date_param = '&$where= incidentdate between ' + "'" + prev_date + "'" + ' and ' + "'" + date + "'"
 
 
@@ -63,5 +63,5 @@ class FetchCrimeData:
         return incidents
 
 DataObject = FetchCrimeData('2015', '10', '08', 'BURGLARY')
-data = DataObject.static_query(['42.37742', '-83.20891'], 200)
+data = DataObject.static_query(['42.37742', '-83.20891'], 3000)
 print(data)
