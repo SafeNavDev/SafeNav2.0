@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+import datetime
+from CompareData import CompareData
 
 app = Flask(__name__)
 
@@ -15,9 +17,11 @@ def get_route(lat1, long1, lat2, long2):
     elif not is_longitude(long2):
         return invalid('Longitude 2 not valid')
 
-    # add all params to a dict to be converted to a json array
-    newDict = {'lat1': lat1, 'long1': long1, 'lat2': lat2, 'long2': long2}
+    now = datetime.datetime.now()
+    crimes_on_path = CompareData.return_crimes(lat1, long1, lat2, long2, str(now.year), str(now.month), str(now.day))
 
+    # add all params to a dict to be converted to a json array
+    newDict = {'coordinates':crimes_on_path}
     return jsonify(**newDict)
 
 
